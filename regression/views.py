@@ -4,10 +4,13 @@ import pandas as pd
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
-@csrf_exempt
+
 
 # Create your views here.
+def index(request):
+	return HttpResponse('Regression Home page')
 
+@csrf_exempt
 def linear_regression(request):
 	if request.method == "POST":
 		x_train = json.loads(request.POST.get('x_train', ''));
@@ -33,5 +36,7 @@ def linear_regression(request):
 		else:
 			return JsonResponse({'return_flag': 'Failure','x_test_result':'length of x_train & y_train are not same'}, safe=False)
 		#print("---------------------------")
+	else:
+		return HttpResponse('1st page')
 
 	

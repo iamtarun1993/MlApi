@@ -13,19 +13,36 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+# from django.contrib import admin
+# from django.urls import path
+# from django.conf.urls import url, include
+# from django.conf.urls import url
+
+# from home import views
+# urlpatterns = [
+#     path('',views.index, name='index')
+# ]
+
+# from regression import views
+# urlpatterns = [
+#     path('admin/', admin.site.urls),
+#     path('regression/linear_regression',views.linear_regression,name='linear_regression'),
+# ]
+
+# from home import views
+# urlpatterns = [
+#     url(r'^$', views.index, name='index'),
+
+# ]
+
+
+
+from django.conf.urls import include, url
 from django.contrib import admin
-from django.urls import path
-from django.conf.urls import url
-from regression import views
 
 urlpatterns = [
-    url(r'^regression/linear_regression', views.linear_regression, name='linear_regression'),
-    url(r'^admin/', admin.site.urls),
+    url(r'^$', include('home.urls')),
+    url(r'^regression/', include('regression.urls')),
 ]
 
 
-
-
-# urlpatterns = [
-#     path('admin/', admin.site.urls),
-# ]
