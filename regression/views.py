@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.template.loader import get_template
 import pandas as pd
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -8,7 +9,10 @@ import json
 
 # Create your views here.
 def index(request):
-	return HttpResponse('Regression Home page')
+	t = get_template('regression/index.html')
+	html = t.render()
+	#return HttpResponse('Regression Home page')
+	return HttpResponse(html)
 
 @csrf_exempt
 def linear_regression(request):

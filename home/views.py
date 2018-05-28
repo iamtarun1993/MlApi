@@ -1,6 +1,10 @@
+
 from django.shortcuts import render
 from django.http import HttpResponse
-# Create your views here.
+from django.template.loader import get_template
 
 def index(request):
-    return HttpResponse('Main Home page')
+
+    t = get_template('home/index.html')
+    html = t.render()
+    return HttpResponse(html)
