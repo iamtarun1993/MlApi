@@ -75,13 +75,55 @@ WSGI_APPLICATION = 'MlApi.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
 
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django_mongodb_engine', 
+#         'NAME': 'ml-api',
+#         'USER': 'admin123admin',
+#         'PASSWORD': 'admin123',
+#         'HOST': 'ds137720.mlab.com',
+#         'PORT': '37720',
+#     }
+# }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django_mongodb_engine_py3', 
+#         'ENGINE': 'django_mongodb_engine',
+#         'NAME': 'ml-api',
+#         'USER': 'admin123admin',
+#         'PASSWORD': 'admin123',
+#         'HOST': 'ds137720.mlab.com',
+#         'PORT': '37720',
+#     }
+# }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'djongo', 
+#         'HOST': '52.21.131.210',     
+#         'USER': 'iamtarun1993',
+#         'PASSWORD': 'admin123admin',       
+#         'PORT': 14183,
+#         'db': 'ml-api',
+#     }
+# }
+
+
+# DATABASES = {
+#    'default' : {
+#       'ENGINE' : 'django_mongodb_engine',
+#       'NAME' : 'my_database'
+#    }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
