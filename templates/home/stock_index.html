@@ -1,0 +1,112 @@
+<html>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<body>
+	<div class="container">
+		<div class="row" ng-app="myApp">
+			<div ng-controller="stockinfo">
+				{% verbatim %}
+				<div class="row">
+					<div class="col-sm-12">
+						
+						<div class="panel panel-default">
+                			<div class="panel-heading">
+                				<h2>{{ stockdata[0].SC_NAME }}</h2><span>{{ stockdata[0].CHANGE_PER | number:2 }}</span>
+                			</div>
+                			<div class="panel-body">
+                				<div class="row">
+                					<div class="col-sm-4">
+                						<div class="panel panel-default">
+                							<div class="panel-heading">
+                								<table id="" class="table table-striped table-condensed table-bordered">
+                									<thead>
+                										<tr>
+                											<th>OPEN</th>
+                											<td>{{ stockdata[0].OPEN }}</td>
+               											</tr>
+               											<tr>
+                											<th>LOW</th>
+                											<td>{{ stockdata[0].LOW }}</td>
+               											</tr>
+               											<tr>
+                											<th>HIGH</th>
+                											<td>{{ stockdata[0].HIGH }}</td>
+               											</tr>
+               											<tr>
+                											<th>CLOSE</th>
+                											<td>{{ stockdata[0].CLOSE }}</td>
+               											</tr>
+                									</thead>
+                								</table>
+                							</div>
+                						</div>
+                					</div>
+                					<div class="col-sm-8">
+                						<div class="panel panel-default">
+                							<div class="panel-heading">
+                								<table id="" class="table table-striped table-condensed table-bordered">
+                									<thead>
+                										<tr>
+                											<th>NET TURNOVER</th>
+                											<td>{{ stockdata[0].NET_TURNOV }}</td>
+               											</tr>
+               											<tr>
+                											<th>NO OF SHARES</th>
+                											<td>{{ stockdata[0].NO_OF_SHRS }}</td>
+               											</tr>
+               											<tr>
+                											<th>NO OF TRADES</th>
+                											<td>{{ stockdata[0].NO_TRADES }}</td>
+               											</tr>
+               											<tr>
+                											<th>SC GROUP</th>
+                											<td>{{ stockdata[0].SC_GROUP }}</td>
+               											</tr>
+                									</thead>
+                								</table>
+                							</div>
+                						</div>
+                					</div>
+
+
+
+                				</div>
+
+                			</div>
+                		</div>
+
+
+
+					</div>
+
+				</div>
+
+
+				{% endverbatim %}
+
+			</div>
+		</div>
+	</div>
+
+
+</body>
+
+<script type="text/javascript">
+angular.module('myApp', [])
+.controller('stockinfo', function($scope,$location,$http) 
+{
+ 	var url = $location.absUrl().split("Stock/");
+    $scope.stock_id = url[1];
+    console.log($scope.stock_id);
+    $http.get("/stock_info/"+$scope.stock_id)
+    .then(function (response) 
+    {
+        $scope.stockdata = response.data;
+        console.log($scope.stockdata)
+    });
+
+})
+</script>
+</html>

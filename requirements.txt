@@ -1,4 +1,5 @@
 dataclasses==0.6
+decorator==4.3.0
 Django==2.0.5
 django-mongo-connection==0.0.2
 django-mongodb-engine-py3==0.6.0.1
@@ -13,5 +14,6 @@ python-dateutil==2.7.3
 pytz==2018.4
 six==1.11.0
 sqlparse==0.2.4
+urllib3==1.22
+validators==0.12.1
 whitenoise==3.3.1
-gunicorn==19.6.0
