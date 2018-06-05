@@ -17,3 +17,4 @@ sqlparse==0.2.4
 urllib3==1.22
 validators==0.12.1
 whitenoise==3.3.1
+gunicorn==19.6.0
