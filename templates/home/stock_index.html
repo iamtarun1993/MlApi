@@ -3,6 +3,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<title>Stock</title>
 <body>
 	<div class="container">
 		<div class="row" ng-app="myApp">
@@ -13,7 +14,7 @@
 						
 						<div class="panel panel-default">
                 			<div class="panel-heading">
-                				<h2>{{ stockdata[0].SC_NAME }}</h2><span>{{ stockdata[0].CHANGE_PER | number:2 }}</span>
+                				<h2>{{ stockdata[0].SC_NAME }}</h2><span ng-style="change_color">{{ stockdata[0].CHANGE_PER | number:2 }} &#37;</span>
                 			</div>
                 			<div class="panel-body">
                 				<div class="row">
@@ -38,6 +39,10 @@
                 											<th>CLOSE</th>
                 											<td>{{ stockdata[0].CLOSE }}</td>
                											</tr>
+                                    <tr>
+                                      <th>PREVIOUS CLOSE</th>
+                                      <td>{{ stockdata[0].PREVCLOSE }}</td>
+                                    </tr>
                 									</thead>
                 								</table>
                 							</div>
@@ -64,6 +69,10 @@
                 											<th>SC GROUP</th>
                 											<td>{{ stockdata[0].SC_GROUP }}</td>
                											</tr>
+                                    <tr>
+                                      <th>SC TYPE</th>
+                                      <td>{{ stockdata[0].SC_TYPE }}</td>
+                                    </tr>
                 									</thead>
                 								</table>
                 							</div>
@@ -104,7 +113,15 @@ angular.module('myApp', [])
     .then(function (response) 
     {
         $scope.stockdata = response.data;
-        console.log($scope.stockdata)
+        console.log($scope.stockdata);
+        console.log($scope.stockdata[0].CHANGE_PER>=0)
+        if($scope.stockdata[0].CHANGE_PER>=0){
+          $scope.change_color = {"color" : "green",}
+        }
+        else {
+          $scope.change_color = {"color" : "red",}
+        }
+        
     });
 
 })

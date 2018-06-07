@@ -90,8 +90,9 @@ def csv_data_top(request):
 	if (len(csv_file)==1):
 		url=csv_file[0]
 		data_csv_frame = pd.read_csv(url);
-		data_csv_frame.drop(['TDCLOINDI','NET_TURNOV','NO_OF_SHRS','NO_TRADES','PREVCLOSE','SC_GROUP','SC_TYPE','LAST'], axis = 1, inplace = True)
-		data_csv_frame['CHANGE_PER'] = ((data_csv_frame.CLOSE - data_csv_frame.OPEN)/data_csv_frame.OPEN)*100;
+		data_csv_frame.drop(['TDCLOINDI','NET_TURNOV','NO_OF_SHRS','NO_TRADES','SC_GROUP','SC_TYPE','LAST'], axis = 1, inplace = True)
+		data_csv_frame['CHANGE_PER'] = ((data_csv_frame.CLOSE - data_csv_frame.PREVCLOSE)/data_csv_frame.PREVCLOSE)*100;
+		data_csv_frame=data_csv_frame[data_csv_frame['PREVCLOSE']!=0]
 		top_10_profit_stock=data_csv_frame.nlargest(10, 'CHANGE_PER');
 		top_10_profit_stock.drop(['OPEN','CLOSE','LOW','HIGH'], axis = 1, inplace = True)
 	top_10_profit_stock=top_10_profit_stock.to_json(orient='records');
@@ -105,8 +106,8 @@ def csv_data_bottom(request):
 	if (len(csv_file)==1):
 		url=csv_file[0]
 		data_csv_frame = pd.read_csv(url);
-		data_csv_frame.drop(['TDCLOINDI','NET_TURNOV','NO_OF_SHRS','NO_TRADES','PREVCLOSE','SC_GROUP','SC_TYPE','LAST'], axis = 1, inplace = True)
-		data_csv_frame['CHANGE_PER'] = ((data_csv_frame.CLOSE - data_csv_frame.OPEN)/data_csv_frame.OPEN)*100;
+		data_csv_frame.drop(['TDCLOINDI','NET_TURNOV','NO_OF_SHRS','NO_TRADES','SC_GROUP','SC_TYPE','LAST'], axis = 1, inplace = True)
+		data_csv_frame['CHANGE_PER'] = ((data_csv_frame.CLOSE - data_csv_frame.PREVCLOSE)/data_csv_frame.PREVCLOSE)*100;
 		top_10_loss_stock=data_csv_frame.nsmallest(10, 'CHANGE_PER');
 		top_10_loss_stock.drop(['OPEN','CLOSE','LOW','HIGH'], axis = 1, inplace = True)
 	top_10_loss_stock=top_10_loss_stock.to_json(orient='records');
@@ -119,8 +120,8 @@ def csv_data_all(request):
 	if (len(csv_file)==1):
 		url=csv_file[0]
 		data_csv_frame = pd.read_csv(url);
-		data_csv_frame.drop(['TDCLOINDI','NET_TURNOV','NO_OF_SHRS','NO_TRADES','PREVCLOSE','SC_GROUP','SC_TYPE','LAST'], axis = 1, inplace = True)
-		data_csv_frame['CHANGE_PER'] = ((data_csv_frame.CLOSE - data_csv_frame.OPEN)/data_csv_frame.OPEN)*100;
+		data_csv_frame.drop(['TDCLOINDI','NET_TURNOV','NO_OF_SHRS','NO_TRADES','SC_GROUP','SC_TYPE','LAST'], axis = 1, inplace = True)
+		data_csv_frame['CHANGE_PER'] = ((data_csv_frame.CLOSE - data_csv_frame.PREVCLOSE)/data_csv_frame.PREVCLOSE)*100;
 		all_stock=data_csv_frame
 		# all_stock.drop(['OPEN','CLOSE','LOW','HIGH'], axis = 1, inplace = True)
 	all_stock=all_stock.to_json(orient='records');
@@ -139,7 +140,7 @@ def stock_info(request,stock_id):
 	if (len(csv_file)==1):
 		url=csv_file[0]
 		data_csv_frame = pd.read_csv(url);
-		data_csv_frame['CHANGE_PER'] = ((data_csv_frame.CLOSE - data_csv_frame.OPEN)/data_csv_frame.OPEN)*100;
+		data_csv_frame['CHANGE_PER'] = ((data_csv_frame.CLOSE - data_csv_frame.PREVCLOSE)/data_csv_frame.PREVCLOSE)*100;
 		stock_full_info=data_csv_frame[data_csv_frame["SC_CODE"] == int(stock_id)];
 	stock_full_info=stock_full_info.to_json(orient='records');
 	return HttpResponse(stock_full_info, content_type='application/json')
