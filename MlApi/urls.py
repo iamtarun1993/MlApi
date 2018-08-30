@@ -43,6 +43,8 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^', include('home.urls')),
     url(r'^regression/', include('regression.urls')),
+    url(r'^fyle/', include('fyle.urls')),
+
 ]
 
 
