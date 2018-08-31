@@ -73,7 +73,7 @@ angular.module('app1', [])
   $scope.search = function() {
         
         console.log($scope.name)
-        $http.get("http://www.omdbapi.com/?s="+$scope.name+"&apikey=8b8a6671")
+        $http.get("https://www.omdbapi.com/?s="+$scope.name+"&apikey=8b8a6671")
         .then(function (response) 
         {
           $scope.response = response.data;
