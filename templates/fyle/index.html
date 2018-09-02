@@ -12,20 +12,25 @@
 			<div class="panel panel-primary">
       <div class="panel-heading">Panel with panel-primary class</div>
       <div class="panel-body">
-      	<div ng-app="app1" ng-controller="controller1"> 
+      	<div ng-app="app1" ng-controller="controller1" > 
       		{% verbatim %}
-    <form action="/action_page.php">
-
       <div class="input-group ">
-        <input type="text" class="form-control" ng-model="name" placeholder="Search any movie" id="movie" name="movie">
+        <input type="text" list="past" class="form-control" ng-model="name" placeholder="Search any movie" id="movie" name="movie">
+
+        <datalist id="past">
+    <!-- <option ng-repeat="y in searchText" value="{{y}}"> -->
+  </datalist>
+
+        
+
+
         <span class="input-group-btn">
           <button class="btn btn-default" type="button" ng-click="search()">
           	Search
           </button>
         </span>
       </div>
-    </form>
-    <a ng-repeat="x in response.Search" href="file/{{x.imdbID}}">
+    <a ng-repeat="x in response.Search" href="omdb/{{x.imdbID}}">
     <div class="panel panel-info">
       <div class="panel-heading">
 
@@ -70,9 +75,40 @@
 angular.module('app1', [])
 .controller('controller1', function($scope, $http) 
 {
+
+
+		$scope.searchText=[]
+		var dbtemp = openDatabase('omdb', '1.0', 'omdb db for search', 2 * 1024 * 1024);
+		dbtemp.transaction(function (tx) { 
+		tx.executeSql('CREATE TABLE IF NOT EXISTS LOGS (name unique)');
+		tx.executeSql('SELECT * FROM LOGS', [], function (tx, results) {
+	  	var len = results.rows.length, i;
+	  	console.log(len)
+	  	$scope.searchText=""
+		  for (i = 0; i < len; i++) {
+		   // $scope.searchText.push(results.rows.item(i).name)
+		    var a_temp="<option value='"+results.rows.item(i).name+"'></option>"
+		    $scope.searchText=$scope.searchText+a_temp;
+		  }
+		  console.log($scope.searchText)
+		  document.getElementById("past").innerHTML = $scope.searchText;
+		});
+		});
+
+	
+
+
   $scope.search = function() {
         
         console.log($scope.name)
+
+         
+
+		dbtemp.transaction(function (tx) { 
+		    
+		   tx.executeSql('INSERT INTO LOGS (name) VALUES ("'+$scope.name+'")') 
+		});
+
         $http.get("https://www.omdbapi.com/?s="+$scope.name+"&apikey=8b8a6671")
         .then(function (response) 
         {

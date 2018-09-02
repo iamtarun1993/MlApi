@@ -59,3 +59,9 @@ def bank_list(request,bank_name,bank_city):
 		bank_list=bank_full_data.to_json(orient='records')
 		return JsonResponse({'Response': 'Success','Bank_List':json.loads(bank_list)}, safe=False)
 	#return JsonResponse({'Response': 'IFSC not valid','Brach_Details':[]}, safe=False)
+
+def omdb(request,id):
+	t= get_template('fyle/omdb.html')
+	html = t.render()
+	#return HttpResponse('Regression Home page')
+	return HttpResponse(html)

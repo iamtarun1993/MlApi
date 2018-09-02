@@ -1,0 +1,59 @@
+<html>
+ <title>Fyle</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<body>
+
+<div ng-app="app2" ng-controller="controller2">
+
+{% verbatim %}
+
+<div class="container">
+	<div class="row">
+		<div class="col-sm-4">
+			<img src="{{response.Poster}}">
+		</div>
+		<div class="col-sm-8">
+			<h1>{{response.Title}} - {{response.Year}}</h1>
+			<h4>{{response.Actors}}</h4>
+			<h5><span>Imdb Rating: {{response.imdbRating}}</span> <span>Imdb Votes: {{response.imdbVotes}}</span></h5>
+			<h6>{{response.Plot}}</h6>
+		</div>
+
+	</div>
+</div>
+
+
+  {% endverbatim %}
+
+
+</div>
+
+
+</body>
+
+<script type="text/javascript">
+	
+angular.module('app2', [])
+.controller('controller2', function($scope, $http,$location) 
+{
+  var imdb_id = $location.absUrl().split('omdb/');
+  // console.log(param1[1]);
+  $scope.imdb_id=imdb_id[1]
+  $http.get("https://www.omdbapi.com/?i="+$scope.imdb_id+"&apikey=8b8a6671")
+        .then(function (response) 
+        {
+          $scope.response = response.data;
+          console.log($scope.response)
+        });
+
+
+});
+
+
+
+</script>
+
+</html>
