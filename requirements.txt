@@ -1,6 +1,6 @@
 dataclasses==0.6
 decorator==4.3.0
-Django==2.0.5
+Django==2.2.10
 django-mongo-connection==0.0.2
 django-mongodb-engine-py3==0.6.0.1
 djangotoolbox==1.8.0
